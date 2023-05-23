@@ -2,6 +2,9 @@ mod game;
 mod search_node;
 mod search_tree;
 mod tree_policy;
+pub mod tic_tac_toe;
+
+#[cfg(test)]
 mod tests;
 
 pub use game::*;
