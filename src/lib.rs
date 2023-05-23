@@ -1,3 +1,7 @@
+/// A fast, easy-to-use, generalized Monte Carlo Tree Search library.
+/// Works for any game, any number of players, and any tree policy. UctPolicy included as a default.
+/// As of the current version, the search is single-threaded.
+
 mod game;
 mod search_node;
 mod search_tree;
