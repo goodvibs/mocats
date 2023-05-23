@@ -1,6 +1,6 @@
 [package]
 name = "mocats"
-version = "0.2.0"
+version = "0.1.0"
 authors = ["Vibhav Singamshetty <vibsingamshetty@gmail.com>"]
 edition = "2021"
 description = "A fast, easy-to-use, generalized Monte Carlo Tree Search library. Works for any game, any number of players, and any tree policy (UCT Policy included as a default)."
