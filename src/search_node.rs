@@ -1,30 +1,39 @@
 use std::fmt;
 use rand::seq::SliceRandom;
-
 use crate::game::{GameAction, GameState, Player};
 use crate::tree_policy::TreePolicy;
 
+/// Represents the state of a node in the search tree.
 pub struct SearchNode<A, Pl> where A: GameAction, Pl: Player {
+    /// The action that this node represents. Only None for the root node.
     pub action: Option<A>,
+    /// The children of this node.
     pub children: Vec<SearchNode<A, Pl>>,
+    /// The player whose turn it was at the root node (initial game position).
     pub root_player: Pl,
+    /// The state of this node.
     pub state: NodeState,
+    /// The number of times this node has been visited.
     pub visits: u32,
+    /// The total value of this node as a result of rollouts.
     pub total_value: f32
 }
 
 impl<A, Pl> SearchNode<A, Pl> where A: GameAction, Pl: Player {
-    pub fn new(action: Option<A>, max_player: Pl) -> SearchNode<A, Pl> {
+    /// Constructs a new search node with the given action and root_player.
+    pub fn new(action: Option<A>, root_player: Pl) -> SearchNode<A, Pl> {
         SearchNode::<A, Pl> {
             action: action,
             children: Vec::new(),
-            root_player: max_player,
+            root_player: root_player,
             state: NodeState::ExpandableLeaf,
             visits: 0,
             total_value: 0.0
         }
     }
 
+    /// Runs a single iteration of the MCTS algorithm.
+    /// Returns the reward for the player whose turn it was at the root node (initial game position).
     pub fn run_iteration<S, Po>(&mut self, game: &mut S, tree_policy: &Po) -> f32 where S: GameState<A, Pl>, Po: TreePolicy<A, Pl> {
         let delta = match self.state {
             NodeState::ExpandableLeaf => {
@@ -60,6 +69,9 @@ impl<A, Pl> SearchNode<A, Pl> where A: GameAction, Pl: Player {
         delta
     }
 
+    /// Adds a child node to this leaf node if it is expandable, using a random legal action.
+    /// If it is not, marks this node as a TerminalLeaf.
+    /// If there is only one allowed action, this node is marked as a TerminalLeaf after expansion.
     pub fn expand<S>(&mut self, game: &S) -> Option<&mut SearchNode<A, Pl>> where S: GameState<A, Pl> {
         let allowed_actions = game.get_actions();
         if allowed_actions.is_empty() {
@@ -132,9 +144,13 @@ impl<A, Pl> fmt::Display for SearchNode<A, Pl> where A: GameAction, Pl: Player {
     }
 }
 
+/// Represents the state of a node in the search tree.
 #[derive(Copy,Clone,Debug,PartialEq,Eq)]
 pub enum NodeState {
-    ExpandableLeaf, // No children, but might have available actions
-    TerminalLeaf, // No children, no available actions
-    Expanded // Has children (already expanded)
+    /// No children, but might have available actions
+    ExpandableLeaf,
+    /// No children, no available actions
+    TerminalLeaf,
+    /// Has children (already expanded)
+    Expanded
 }

@@ -5,9 +5,13 @@ use crate::game::{GameAction, GameState, Player};
 use crate::search_node::*;
 use crate::tree_policy::TreePolicy;
 
+/// Represents a MCTS search tree.
 pub struct SearchTree<S: GameState<A, Pl>, A: GameAction, Pl: Player, Po: TreePolicy<A, Pl>> {
+    /// The root node of the search tree.
     root: SearchNode<A, Pl>,
+    /// The initial game state.
     root_game_state: S,
+    /// The tree policy to use.
     policy: Po,
 }
 
@@ -27,12 +31,14 @@ impl<S, A, Pl, Po> SearchTree<S, A, Pl, Po> where S: GameState<A, Pl>, A: GameAc
         }
     }
 
+    /// Runs the MCTS algorithm for the given number of iterations.
     pub fn run(&mut self, iterations: usize) {
         for _ in 0..iterations {
             self.root.run_iteration(&mut self.root_game_state.clone(), &self.policy);
         }
     }
 
+    /// Returns the best action according to the MCTS algorithm.
     pub fn get_best_action(&mut self) -> Option<A> {
         self.root.children.as_slice().into_iter().reduce(|a, b| if a.visits > b.visits { a } else { b }).map(|n| n.action.expect("Expected node to have action"))
     }
