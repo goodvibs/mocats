@@ -34,7 +34,7 @@ pub enum TicTacToePlayer {
 }
 
 impl TicTacToePlayer {
-    pub(crate) fn other(&self) -> TicTacToePlayer {
+    pub fn other(&self) -> TicTacToePlayer {
         match self {
             TicTacToePlayer::X => TicTacToePlayer::O,
             TicTacToePlayer::O => TicTacToePlayer::X
@@ -179,7 +179,7 @@ impl GameState<TicTacToeMove, TicTacToePlayer> for TicTacToePosition {
         self.get_moves().iter().map(|&pos| TicTacToeMove { pos }).collect()
     }
 
-    fn take_action(&mut self, action: &TicTacToeMove) {
+    fn apply_action(&mut self, action: &TicTacToeMove) {
         self.make_move(action.pos);
     }
 

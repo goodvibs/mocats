@@ -31,11 +31,11 @@ impl<A, Pl> SearchNode<A, Pl> where A: GameAction, Pl: Player {
                 let root_player = self.root_player;
                 match self.expand(game) {
                     Some(best_child) =>  {
-                        game.take_action(&best_child.action.expect("Expected child node to have action"));
+                        game.apply_action(&best_child.action.expect("Expected child node to have action"));
                         let mut available = game.get_actions();
                         while available.len() > 0 {
                             let action = available.choose(&mut rand::thread_rng()).expect("Expected available actions to be non-empty");
-                            game.take_action(&action);
+                            game.apply_action(&action);
                             available = game.get_actions();
                         }
                         let reward = game.get_reward_for_player(root_player);
@@ -51,7 +51,7 @@ impl<A, Pl> SearchNode<A, Pl> where A: GameAction, Pl: Player {
             },
             NodeState::Expanded => {
                 let child = tree_policy.select_child(self, game.get_turn() == self.root_player);
-                game.take_action(&child.action.expect("Expected child node to have action"));
+                game.apply_action(&child.action.expect("Expected child node to have action"));
                 child.run_iteration(game, tree_policy)
             }
         };
