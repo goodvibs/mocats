@@ -1,7 +1,15 @@
 [package]
 name = "mocats"
 version = "0.1.0"
+authors = ["Vibhav Singamshetty <vibsingamshetty@gmail.com>"]
 edition = "2021"
+description = "A fast, easy-to-use, generalized Monte Carlo Tree Search library. Works for any game, any number of players, and any tree policy (UCT Policy included as a default)."
+readme = "README.md"
+repository = "https://github.com/goodvibs/mocats/"
+license = "MIT"
+keywords = ["mcts", "monte", "carlo", "tree", "search"]
+categories = ["artificial-intelligence", "games", "search", "tree-search", "monte-carlo-tree-search"]
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
