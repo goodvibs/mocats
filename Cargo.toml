@@ -9,7 +9,7 @@ repository = "https://github.com/goodvibs/mocats"
 license = "MIT"
 keywords = ["mcts", "monte", "carlo", "tree", "search"]
 categories = ["artificial-intelligence", "algorithms", "search", "monte-carlo-tree-search"]
-include = ["/src"]
+include = ["/src", "/Cargo.toml", "/Cargo.lock", "/README.md", "/LICENSE"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
