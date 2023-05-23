@@ -25,7 +25,7 @@ impl<A, Pl> SearchNode<A, Pl> where A: GameAction, Pl: Player {
         }
     }
 
-    pub fn iteration<S, Po>(&mut self, game: &mut S, tree_policy: &Po) -> f32 where S: GameState<A, Pl>, Po: TreePolicy<A, Pl> {
+    pub fn run_iteration<S, Po>(&mut self, game: &mut S, tree_policy: &Po) -> f32 where S: GameState<A, Pl>, Po: TreePolicy<A, Pl> {
         let delta = match self.state {
             NodeState::ExpandableLeaf => {
                 let root_player = self.root_player;
@@ -52,7 +52,7 @@ impl<A, Pl> SearchNode<A, Pl> where A: GameAction, Pl: Player {
             NodeState::Expanded => {
                 let child = tree_policy.select_child(self, game.get_turn() == self.root_player);
                 game.take_action(&child.action.expect("Expected child node to have action"));
-                child.iteration(game, tree_policy)
+                child.run_iteration(game, tree_policy)
             }
         };
         self.visits += 1;

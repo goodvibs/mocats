@@ -29,7 +29,7 @@ impl<S, A, Pl, Po> SearchTree<S, A, Pl, Po> where S: GameState<A, Pl>, A: GameAc
 
     pub fn run(&mut self, iterations: usize) {
         for _ in 0..iterations {
-            self.root.iteration(&mut self.root_game_state.clone(), &self.policy);
+            self.root.run_iteration(&mut self.root_game_state.clone(), &self.policy);
         }
     }
 
