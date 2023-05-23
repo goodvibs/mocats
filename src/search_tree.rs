@@ -11,7 +11,7 @@ pub struct SearchTree<S: GameState<A, Pl>, A: GameAction, Pl: Player, Po: TreePo
     policy: Po,
 }
 
-impl<S: GameState<A, Pl>, A: GameAction, Pl: Player, Po: TreePolicy<A, Pl>> SearchTree<S, A, Pl, Po> {
+impl<S, A, Pl, Po> SearchTree<S, A, Pl, Po> where S: GameState<A, Pl>, A: GameAction, Pl: Player, Po: TreePolicy<A, Pl> {
     pub fn new(game: S, tree_policy: Po) -> SearchTree<S, A, Pl, Po> {
         SearchTree {
             root: SearchNode {
@@ -38,7 +38,7 @@ impl<S: GameState<A, Pl>, A: GameAction, Pl: Player, Po: TreePolicy<A, Pl>> Sear
     }
 }
 
-impl<S: GameState<A, Pl>, A: GameAction, Pl: Player, Po: TreePolicy<A, Pl>> Display for SearchTree<S, A, Pl, Po> {
+impl<S, A, Pl, Po> Display for SearchTree<S, A, Pl, Po> where S: GameState<A, Pl>, A: GameAction, Pl: Player, Po: TreePolicy<A, Pl> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         writeln!(f, "Node count: {}\n{}", self.root.get_node_count(), self.root)
     }

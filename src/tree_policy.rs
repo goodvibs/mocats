@@ -1,7 +1,7 @@
 use crate::game::{GameAction, Player};
 use crate::search_node::SearchNode;
 
-pub trait TreePolicy<A: GameAction, Pl: Player>: Sized {
+pub trait TreePolicy<A, Pl>: Sized where A: GameAction, Pl: Player {
     fn select_child<'a>(&self, node: &'a mut SearchNode<A, Pl>, is_max_player_turn: bool) -> &'a mut SearchNode<A, Pl>;
 }
 
@@ -18,7 +18,7 @@ impl UctPolicy {
     }
 }
 
-impl<A: GameAction, Pl: Player> TreePolicy<A, Pl> for UctPolicy {
+impl<A, Pl> TreePolicy<A, Pl> for UctPolicy where A: GameAction, Pl: Player {
     fn select_child<'a>(&self, node: &'a mut SearchNode<A, Pl>, is_root_player_turn: bool) -> &'a mut SearchNode<A, Pl> {
         match is_root_player_turn {
             true => {

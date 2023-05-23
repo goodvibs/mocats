@@ -4,7 +4,7 @@ use rand::seq::SliceRandom;
 use crate::game::{GameAction, GameState, Player};
 use crate::tree_policy::TreePolicy;
 
-pub struct SearchNode<A: GameAction, Pl: Player> {
+pub struct SearchNode<A, Pl> where A: GameAction, Pl: Player {
     pub action: Option<A>,
     pub children: Vec<SearchNode<A, Pl>>,
     pub root_player: Pl,
@@ -13,7 +13,7 @@ pub struct SearchNode<A: GameAction, Pl: Player> {
     pub total_value: f32
 }
 
-impl<A: GameAction, Pl: Player> SearchNode<A, Pl> {
+impl<A, Pl> SearchNode<A, Pl> where A: GameAction, Pl: Player {
     pub fn new(action: Option<A>, max_player: Pl) -> SearchNode<A, Pl> {
         SearchNode::<A, Pl> {
             action: action,
@@ -25,7 +25,7 @@ impl<A: GameAction, Pl: Player> SearchNode<A, Pl> {
         }
     }
 
-    pub fn iteration<S: GameState<A, Pl>, Po: TreePolicy<A, Pl>>(&mut self, game: &mut S, tree_policy: &Po) -> f32 {
+    pub fn iteration<S, Po>(&mut self, game: &mut S, tree_policy: &Po) -> f32 where S: GameState<A, Pl>, Po: TreePolicy<A, Pl> {
         let delta = match self.state {
             NodeState::ExpandableLeaf => {
                 let root_player = self.root_player;
@@ -60,7 +60,7 @@ impl<A: GameAction, Pl: Player> SearchNode<A, Pl> {
         delta
     }
 
-    pub fn expand<S: GameState<A, Pl>>(&mut self, game: &S) -> Option<&mut SearchNode<A, Pl>> {
+    pub fn expand<S>(&mut self, game: &S) -> Option<&mut SearchNode<A, Pl>> where S: GameState<A, Pl> {
         let allowed_actions = game.get_actions();
         if allowed_actions.is_empty() {
             self.state = NodeState::TerminalLeaf;
@@ -99,7 +99,7 @@ impl<A: GameAction, Pl: Player> SearchNode<A, Pl> {
     }
 }
 
-impl<A: GameAction, Pl: Player> fmt::Display for SearchNode<A, Pl> {
+impl<A, Pl> fmt::Display for SearchNode<A, Pl> where A: GameAction, Pl: Player {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         fn fmt_subtree<A: GameAction, Pl: Player>(f: &mut fmt::Formatter, node: &SearchNode<A, Pl>, indent_level :i32) -> fmt::Result {
             for _ in 0..indent_level {
