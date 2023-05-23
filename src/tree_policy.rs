@@ -1,11 +1,17 @@
+//! Contains the trait that defines a tree policy, as well as a preset implementation (UctPolicy).
+
 use crate::game::{GameAction, Player};
 use crate::search_node::SearchNode;
 
+/// A trait that defines a tree policy.
 pub trait TreePolicy<A, Pl>: Sized where A: GameAction, Pl: Player {
+    /// Selects a child node to explore.
     fn select_child<'a>(&self, node: &'a mut SearchNode<A, Pl>, is_max_player_turn: bool) -> &'a mut SearchNode<A, Pl>;
 }
 
+/// A preset implementation of a tree policy, using the UCT formula.
 pub struct UctPolicy {
+    /// The exploration constant to use.
     pub exploration_constant: f32
 }
 

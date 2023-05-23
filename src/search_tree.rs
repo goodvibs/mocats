@@ -1,3 +1,5 @@
+//! Contains the implementation of the MCTS search tree.
+
 use std::fmt;
 use std::fmt::Display;
 

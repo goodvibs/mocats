@@ -1,3 +1,5 @@
+//! Contains the traits that define a game.
+
 use std::fmt::{Debug, Display};
 
 

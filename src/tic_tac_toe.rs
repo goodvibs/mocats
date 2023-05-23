@@ -1,3 +1,5 @@
+//! Contains a tic-tac-toe game implementation.
+
 use std::fmt::{Display, Formatter};
 use std::fmt;
 use crate::{GameAction, GameState, Player};

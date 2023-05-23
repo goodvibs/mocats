@@ -1,3 +1,5 @@
+//! Contains the SearchNode struct, which represents a node in the search tree.
+
 use std::fmt;
 use rand::seq::SliceRandom;
 use crate::game::{GameAction, GameState, Player};
