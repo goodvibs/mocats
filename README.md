@@ -53,7 +53,7 @@ fn foo() {
 }
 ```
 
-# Example
+## Example
 
 ```rust
 use std::fmt;
