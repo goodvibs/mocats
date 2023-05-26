@@ -1,12 +1,22 @@
 //! # mocats
 //!
+//! [![Crates.io](https://img.shields.io/crates/v/mocats)](https://crates.io/crates/mocats)
+//! [![License](https://img.shields.io/crates/l/mocats)](./LICENSE)
+//!
 //! A fast, easy-to-use, generalized Monte Carlo Tree Search library.
 //! Works for any game, any number of players, and any tree policy (UctPolicy included as a default).
 //! As of the current version, the search is single-threaded.
 //!
+//! ## Features
+//! - Fast and efficient Monte Carlo Tree Search implementation
+//! - Easy-to-use API
+//! - Customizable number of players (uses paranoid approach for more than 2 players)
+//! - Customizable tree policies
+//! - Nicely formatted display output for debugging
+//!
 //! ## Usage
 //!
-//! In the root directory of your project, do
+//! In the root directory of your project, add the `mocats` dependency to your `Cargo.toml` file:
 //!
 //! ```bash
 //! cargo add mocats
@@ -16,12 +26,12 @@
 //!
 //! ```toml
 //! [dependencies]
-//! mocats = "0.2.0"
+//! mocats = "0.2.1"
 //! ```
 //!
 //! ### Defining a game
 //!
-//! To use mocats, you must define a game and a tree policy. A game is defined by three traits:
+//! To use `mocats`, you must define a game and a tree policy. A game is defined by three traits:
 //!
 //! - `GameState`: Represents a game state.
 //! - `GameAction`: Represents a legal game action that can be applied to some `GameState`.
@@ -52,6 +62,9 @@
 //! ```
 //!
 //! ## Example
+//!
+//! See the `mocats::tic_tac_toe module` for a full example of implementing Tic Tac Toe using `mocats`.
+//! You can import `tic_tac_toe` to use it in your code.
 //!
 //! ```rust
 //! use std::fmt;
@@ -124,16 +137,18 @@
 //! }
 //! ```
 //!
-//! See `mocats::tic_tac_toe` for a full example.
-//! You can also import the `tic_tac_toe` to use it in your code.
+//! ## Documentation
 //!
-//! ## License
-//!
-//! MIT
+//! For more detailed documentation and usage examples, refer to the [API documentation](https://docs.rs/mocats/0.2.1/mocats/).
 //!
 //! ## Contributing
 //!
-//! Pull requests are welcome!
+//! Contributions in the form of pull requests are welcome!
+//! If you encounter any issues or have suggestions for improvements, please open an issue on the GitHub repository.
+//!
+//! ## License
+//!
+//! This project is licensed under the MIT License. See the [LICENSE file](./LICENSE) for details.
 
 mod game;
 mod search_node;
