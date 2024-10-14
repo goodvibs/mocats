@@ -28,7 +28,7 @@ cargo add mocats
 
 ```toml
 [dependencies]
-mocats = "0.2.1"
+mocats = "0.3.0"
 ```
 
 ### Defining a game
