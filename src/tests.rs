@@ -17,7 +17,7 @@ fn get_opt_result_by_mocats(pos: TicTacToePosition) -> Option<TicTacToePlayer> {
     let mut moves = game.get_moves();
     while !moves.is_empty() {
         let mut mcts = SearchTree::<TicTacToePosition, TicTacToeMove, TicTacToePlayer, UctPolicy>::new(game, UctPolicy::new(2.));
-        mcts.run(2000);
+        mcts.run(300000);
         let best = mcts.get_best_action().unwrap().pos;
         game.make_move(best);
         moves = game.get_moves();
