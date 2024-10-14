@@ -1,7 +1,6 @@
 //! Contains the SearchNode struct, which represents a node in the search tree.
 
 use std::fmt;
-use rand::seq::SliceRandom;
 use crate::game::{GameAction, GameState, Player};
 use crate::tree_policy::TreePolicy;
 
@@ -45,7 +44,7 @@ impl<A, Pl> SearchNode<A, Pl> where A: GameAction, Pl: Player {
                         game.apply_action(&best_child.action.expect("Expected child node to have action"));
                         let mut available = game.get_actions();
                         while available.len() > 0 {
-                            let action = available.choose(&mut rand::thread_rng()).expect("Expected available actions to be non-empty");
+                            let action = available[fastrand::usize(0..available.len())];
                             game.apply_action(&action);
                             available = game.get_actions();
                         }
@@ -96,7 +95,7 @@ impl<A, Pl> SearchNode<A, Pl> where A: GameAction, Pl: Player {
             self.state = NodeState::Expanded;
         }
         else {
-            let rand_action = *candidate_actions.choose(&mut rand::thread_rng()).expect("Expected candidate actions to be non-empty");
+            let rand_action = candidate_actions[fastrand::usize(0..candidate_actions.len())];
             let node = SearchNode::new(Some(rand_action), self.root_player);
             self.children.push(node);
             // self.children.push(SearchNode::new(Some(*candidate_actions.choose(&mut rand::thread_rng()).expect("Expected candidate actions to be non-empty"))));
